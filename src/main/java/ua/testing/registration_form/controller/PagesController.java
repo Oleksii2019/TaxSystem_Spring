@@ -15,4 +15,11 @@ public class PagesController {
     public String regForm(){
         return "reg_form";
     }
+
+    @RequestMapping("/all_user")
+    public String userPage(){
+        return "users/index.html";
+    }
+
+
 }

@@ -1,19 +1,23 @@
 package ua.testing.registration_form.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ua.testing.registration_form.DAO.RepoRegManager;
+import ua.testing.registration_form.DAO.UserRepository;
 import ua.testing.registration_form.dto.NoteDTO;
+import ua.testing.registration_form.entity.User;
 
 @Service
-public class RegFormService {
-    private RepoRegManager r;
+public class RegFormService implements IRegFormControllerToService {
 
-    public RegFormService(RepoRegManager r) {
-        this.r = r;
-    }
+   @Autowired
+    UserRepository ur;
 
-    public void inputNote(NoteDTO name) {
-        r.dtoToUser(name);
+    @Override
+    public void fromRegFormController(NoteDTO note) {
+        User user = new User();
+        user.setNames(note.getNames());
+        user.setLogin(note.getLogin());
+        ur.getUserFromSeervice(user);
     }
 
 }

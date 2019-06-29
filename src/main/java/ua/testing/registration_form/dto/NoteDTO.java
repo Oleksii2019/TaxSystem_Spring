@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @Builder
 @ToString
-@Component
+//@Component
 public class NoteDTO {
 
     private String names;
