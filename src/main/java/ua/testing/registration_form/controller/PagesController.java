@@ -16,7 +16,7 @@ public class PagesController {
         return "reg_form";
     }
 
-    @RequestMapping("/all_user")
+    @RequestMapping("/users")
     public String userPage(){
         return "users/index.html";
     }
