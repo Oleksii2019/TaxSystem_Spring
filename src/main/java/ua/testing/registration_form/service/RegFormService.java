@@ -1,6 +1,5 @@
 package ua.testing.registration_form.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.testing.registration_form.DAO.RepoRegManager;
 import ua.testing.registration_form.dto.NoteDTO;
