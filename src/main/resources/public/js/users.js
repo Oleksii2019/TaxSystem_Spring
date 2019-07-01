@@ -5,11 +5,12 @@ angular.module("users_form",[])
         $scope.getUsers = function(){
             $http({
                 method: "GET",
-                url: "/user",
+                url: "not_format/users",
                 headers: { "Content-Type" : "application/json" }
             }).then(
                 function(data) {
-                    $scope.users = data.data.users;
+                    $scope.users = data.data; // .users
+                    console.log(data.data);
                 },
                 function(error) {
                     console.log("userCtrl error")

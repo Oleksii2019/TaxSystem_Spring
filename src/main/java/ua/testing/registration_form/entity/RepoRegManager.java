@@ -1,30 +1,39 @@
 package ua.testing.registration_form.entity;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
 import ua.testing.registration_form.DAO.UserRepository;
 
 import java.util.ArrayList;
 
 @Slf4j
 @Component
-public class RepoRegManager extends Users implements UserRepository {
+public class RepoRegManager extends Users {
 
-    @Override
-    public void getUserFromSeervice(User user) {
+    public void getUserFromService(User user) {
         saveUser(user);
     }
 
-    private void saveUser(User user) {
+    public void saveUser(User user) {
+        if (getUsers().isEmpty()) {
+            ur.findAll().forEach(x -> getUsers().add(x));
+        }
+
         if (checkUser(user)) {
-            getUsers().add(user);
+            ur.save(user); // В базу
+            getUsers().add(user); // В масив
         }
         toView(user);
     }
 
     private void toView(User user) {
         log.info("{}", user);
+    }
+
+    public ArrayList<User> getUserToService() {
+        ArrayList<User> i = getUsers();
+        return i;
     }
 
 }

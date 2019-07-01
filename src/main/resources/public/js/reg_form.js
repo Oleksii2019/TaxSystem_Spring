@@ -14,11 +14,12 @@ angular.module("registration_form",[])
         $scope.sendForm = function(auth){
             $http({
                 method: "POST",
-                url: "/api/reg_form",
+                url: "/users",
                 data: $.param(auth),
                 headers: { "Content-Type" : "application/x-www-form-urlencoded" }
             }).then(
                 (data) => {
+                    console.log(auth);
                     resultMessageEl.style.color = 'green';
                     $scope.message = 'Успешно зарегистрирован';
                     exampleInputNameEl.value = '';

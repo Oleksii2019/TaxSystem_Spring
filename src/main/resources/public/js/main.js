@@ -11,6 +11,7 @@ angular.module("login_form",[])
             exampleInputPasswordLabel.style.color = 'black';
             exampleInputEmailEl.style.color = 'black';
             $scope.message = '';
+            console.log($scope.auth);
         });
         $scope.sendForm = function(auth){
             $http({

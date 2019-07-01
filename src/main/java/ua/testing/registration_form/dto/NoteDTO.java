@@ -1,7 +1,6 @@
 package ua.testing.registration_form.dto;
 
 import lombok.*;
-import org.springframework.stereotype.Component;
 
 @Getter
 @Setter
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @Builder
 @ToString
-//@Component
 public class NoteDTO {
 
     private String names;

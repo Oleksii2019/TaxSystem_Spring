@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ua.testing.registration_form.dto.UserDTO;
 import ua.testing.registration_form.service.LoginFormService;
-import ua.testing.registration_form.service.RegFormService;
 
 @Slf4j
 @RestController
@@ -20,9 +19,13 @@ public class LoginFormController {
         this.loginFormService = loginFormService;
     }
 
+    /**
+     * Метод НЕ реализован
+     */
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public void loginFormController(UserDTO user){
         log.info("{}", user);
     }
+
 }

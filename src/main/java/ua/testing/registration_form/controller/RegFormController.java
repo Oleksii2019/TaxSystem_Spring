@@ -16,12 +16,6 @@ public class RegFormController {
     @Autowired
     IRegFormControllerToService r;
 
-    //@Autowired
-//    public RegFormController(RegFormService regFormService) {
-//        this.regFormService = regFormService;
-//    }
-
-    //@ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/reg_form", method = RequestMethod.POST)
     public void registrationFormController(NoteDTO note){
         r.fromRegFormController(note);
