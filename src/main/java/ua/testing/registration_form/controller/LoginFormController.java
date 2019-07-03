@@ -2,7 +2,6 @@ package ua.testing.registration_form.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.testing.registration_form.dto.UserDTO;
 import ua.testing.registration_form.service.LoginFormService;
@@ -12,20 +11,19 @@ import ua.testing.registration_form.service.LoginFormService;
 @RequestMapping(value = "/")
 public class LoginFormController {
 
-    private final LoginFormService loginFormService;
+    private LoginFormService lfs;
 
     @Autowired
-    public LoginFormController(LoginFormService loginFormService) {
-        this.loginFormService = loginFormService;
+    public LoginFormController(LoginFormService lfs) {
+        this.lfs = lfs;
     }
 
-    /**
-     * Метод НЕ реализован
-     */
-    //@ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public void getLogin(UserDTO user){
+    public void getLogin(UserDTO user) throws Exception {
         log.info("{}", user);
+        if (lfs.checkLogin(user)) {
+            throw new Exception();
+        }
     }
 
 }

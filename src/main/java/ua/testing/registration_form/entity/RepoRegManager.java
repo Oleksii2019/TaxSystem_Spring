@@ -30,8 +30,7 @@ public class RepoRegManager extends Users {
     }
 
     public ArrayList<User> getUserToService() {
-        ArrayList<User> i = getUsers();
-        return i;
+        return getUsers();
     }
 
 }

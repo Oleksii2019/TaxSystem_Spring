@@ -26,7 +26,7 @@
                            id="exampleInputName"
                            placeholder="First Name"
                            required
-                           ng-model="auth.names">
+                           ng-model="auth.name">
                 </div>
                 <div class="form-group">
                     <label id="inputLoginLabel" for="exampleInputLogin">Login</label>

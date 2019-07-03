@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 public class NoteDTO {
 
-    private String names;
+    private String name;
 
     private String login;
 

@@ -35,5 +35,18 @@ public class Users extends User {
         return true;
     }
 
+    public boolean checkUserByLogin(String login) {
+        if (getUsers().isEmpty()) {
+            ur.findAll().forEach(x -> getUsers().add(x));
+        }
+
+        for (int i = 0; i < users.size(); i++) {
+            if (login.equals(users.get(i).getLogin())) {
+//                checkByLoginResult = false;
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

@@ -14,7 +14,7 @@ angular.module("registration_form",[])
         $scope.sendForm = function(auth){
             $http({
                 method: "POST",
-                url: "/users",
+                url: "/reg_form",
                 data: $.param(auth),
                 headers: { "Content-Type" : "application/x-www-form-urlencoded" }
             }).then(
@@ -26,6 +26,8 @@ angular.module("registration_form",[])
                     exampleInputLoginEl.value = '';
                 },
                 (error) => {
+                    console.log("Ex");
+                    console.log(auth);
                     resultMessageEl.style.color = 'red';
                     inputNameLabel.style.color = 'red';
                     inputLoginLabel.style.color = 'red';
