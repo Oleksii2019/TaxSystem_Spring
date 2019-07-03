@@ -1,9 +1,7 @@
 package ua.testing.registration_form.entity;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ua.testing.registration_form.DAO.UserRepository;
 
 import java.util.ArrayList;
 

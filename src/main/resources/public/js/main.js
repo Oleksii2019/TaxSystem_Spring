@@ -2,14 +2,14 @@ angular.module("login_form",[])
     .controller("AppCtrl", function ($scope, $http) {
         $scope.auth = {};
         let resultMessageEl = document.getElementById('resultMessage');
-        let exampleInputEmailEl = document.getElementById('exampleInputEmail1');
+        let exampleInputLoginEl = document.getElementById('exampleInputLogin1');
         let exampleInputPasswordEl = document.getElementById('exampleInputPassword1');
-        let exampleInputEmailLabel = document.getElementById('exampleInputEmailLabel');
+        let exampleInputLoginLabel = document.getElementById('exampleInputLoginLabel');
         let exampleInputPasswordLabel = document.getElementById('exampleInputPasswordLabel');
-        exampleInputEmailEl.addEventListener('input', () => {
-            exampleInputEmailLabel.style.color = 'black';
+        exampleInputLoginEl.addEventListener('input', () => {
+            exampleInputLoginLabel.style.color = 'black';
             exampleInputPasswordLabel.style.color = 'black';
-            exampleInputEmailEl.style.color = 'black';
+            exampleInputLoginEl.style.color = 'black';
             $scope.message = '';
             console.log($scope.auth);
         });
@@ -23,16 +23,18 @@ angular.module("login_form",[])
                 (data) => {
                     resultMessageEl.style.color = 'green';
                     $scope.message = "Доступ разрешен";
-                    exampleInputEmailEl.value = '';
+                    exampleInputLoginEl.value = '';
                     exampleInputPasswordEl.value = '';
+                    console.log("Ok");
                 },
                 (error) => {
-                    exampleInputEmailLabel.style.color = 'red';
+                    exampleInputLoginLabel.style.color = 'red';
                     exampleInputPasswordLabel.style.color = 'red';
                     resultMessageEl.style.color = 'red';
-                    exampleInputEmailEl.value = '';
+                    exampleInputLoginEl.value = '';
                     exampleInputPasswordEl.value = '';
                     $scope.message = "Доступ запрещен"
+                    console.log("Ex");
                 }
             );
         }
