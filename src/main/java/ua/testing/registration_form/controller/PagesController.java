@@ -13,7 +13,7 @@ public class PagesController {
         return "sss";
     }
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/login")
     public String loginPage() {
         return "log_form";
     }

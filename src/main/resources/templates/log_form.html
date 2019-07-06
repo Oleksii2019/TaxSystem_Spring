@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--<html lang="en">-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -11,9 +11,9 @@
 </head>
 <body ng-app="login_form" ng-controller="AppCtrl">
 <div style="text-align: right;padding:5px;margin:5px 0px;background:#ccc;">
-    <a th:href="@{/?lang=en}">English</a>
+    <a th:href="@{/login?lang=en}">English</a>
     &nbsp;|&nbsp;
-    <a th:href="@{/?lang=uk}">Ukrainian</a>
+    <a th:href="@{/login?lang=uk}">Ukrainian</a>
 </div>
 <div class="col-md-8 col-md-offset-2">
     <h1 th:text="#{login.main.form}">Login form's Main</h1>

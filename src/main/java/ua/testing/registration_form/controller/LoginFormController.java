@@ -8,7 +8,7 @@ import ua.testing.registration_form.service.LoginFormService;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "/login")
 public class LoginFormController {
 
     private final LoginFormService lfs;
@@ -18,7 +18,7 @@ public class LoginFormController {
         this.lfs = lfs;
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public void getLogin(UserDTO user) throws Exception {
         log.info("{}", user);
         if (lfs.checkLogin(user)) {
