@@ -15,7 +15,7 @@ public class PagesController {
 
     @RequestMapping(value = "/")
     public String loginPage() {
-        return "index";
+        return "log_form";
     }
 
     @RequestMapping("/reg_form")
