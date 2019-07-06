@@ -8,9 +8,14 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class PagesController {
 
+    @RequestMapping(value = "/sss")
+    public String sssPage() {
+        return "sss";
+    }
+
     @RequestMapping(value = "/")
     public String loginPage() {
-        return "index.html";
+        return "index";
     }
 
     @RequestMapping("/reg_form")
@@ -20,7 +25,7 @@ public class PagesController {
 
     @RequestMapping(value = "/users")
     public String usersPage(){
-        return "users/usersTab.html";
+        return "usersTab";
     }
 
 }

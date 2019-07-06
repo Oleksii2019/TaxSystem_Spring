@@ -15,8 +15,8 @@ import ua.testing.registration_form.service.IRegFormControllerToService;
 @RequestMapping(value = "/")
 public class RegFormController {
 
-    private IRegFormControllerToService r;
-    private UserRepository db;
+    private final IRegFormControllerToService r;
+    private final UserRepository db;
 
     @Autowired
     public RegFormController(IRegFormControllerToService r,
@@ -38,7 +38,7 @@ public class RegFormController {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity handleRuntimeException(RuntimeException ex) {
-        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(ex, HttpStatus.BAD_REQUEST);
     }
 
 }

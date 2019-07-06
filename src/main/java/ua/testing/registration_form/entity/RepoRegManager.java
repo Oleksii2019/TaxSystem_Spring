@@ -9,18 +9,21 @@ import java.util.ArrayList;
 @Component
 public class RepoRegManager extends Users {
 
-    public void getUserFromService(User user) {
-        saveUser(user);
-    }
-
-    public void saveUser(User user) {
+    public void saveUser(User user) throws RuntimeException {
         if (getUsers().isEmpty()) {
             ur.findAll().forEach(x -> getUsers().add(x));
         }
 
-        if (checkUser(user)) {
-            ur.save(user); // В базу
+        if (checkExistUserInBase(user)) {
+            try {
+                ur.save(user); // В базу
+            } catch(RuntimeException ex) {
+                log.info("{}", user);
+                throw new IllegalArgumentException("x_DB");
+            }
             getUsers().add(user); // В масив
+        } else {
+            throw new IllegalArgumentException("x_reg");
         }
         toView(user);
     }
@@ -29,8 +32,8 @@ public class RepoRegManager extends Users {
         log.info("{}", user);
     }
 
-    public ArrayList<User> getUserToService() {
-        return getUsers();
-    }
+//    public ArrayList<User> getUserToService() {
+//        return getUsers();
+//    }
 
 }

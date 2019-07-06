@@ -11,7 +11,7 @@ import ua.testing.registration_form.service.LoginFormService;
 @RequestMapping(value = "/")
 public class LoginFormController {
 
-    private LoginFormService lfs;
+    private final LoginFormService lfs;
 
     @Autowired
     public LoginFormController(LoginFormService lfs) {

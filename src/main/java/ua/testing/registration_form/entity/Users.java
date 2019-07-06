@@ -14,7 +14,9 @@ public class Users extends User {
 
     @Autowired
     UserRepository ur;
-
+//    public Users (UserRepository ur) {
+//        this.ur = ur;
+//    }
 
     public Users () {
         users = new ArrayList<>();
@@ -25,10 +27,9 @@ public class Users extends User {
         return users;
     }
     
-    public boolean checkUser(User user) {
+    public boolean checkExistUserInBase(User user) {
         for (int i = 0; i < users.size(); i++) {
-            if (user.getName().equals(users.get(i).getName())
-                    && user.getLogin().equals(users.get(i).getLogin())) {
+            if (user.getLogin().equals(users.get(i).getLogin())) {
                 return false;
             }
         }
@@ -42,7 +43,6 @@ public class Users extends User {
 
         for (int i = 0; i < users.size(); i++) {
             if (login.equals(users.get(i).getLogin())) {
-//                checkByLoginResult = false;
                 return false;
             }
         }

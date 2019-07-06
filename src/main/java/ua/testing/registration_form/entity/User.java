@@ -24,4 +24,7 @@ public class User {
 
     private String password;
 
+//    @Enumerated(EnumType.STRING)
+    private RoleType role;
+
 }

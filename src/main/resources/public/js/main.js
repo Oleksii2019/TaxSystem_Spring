@@ -33,7 +33,7 @@ angular.module("login_form",[])
                     resultMessageEl.style.color = 'red';
                     exampleInputLoginEl.value = '';
                     exampleInputPasswordEl.value = '';
-                    $scope.message = "Доступ запрещен"
+                    $scope.message = "При авторизации произошла ошибка"
                     console.log("Ex");
                 }
             );

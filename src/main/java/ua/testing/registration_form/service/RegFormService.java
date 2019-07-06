@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.testing.registration_form.dto.NoteDTO;
 import ua.testing.registration_form.entity.RepoRegManager;
+import ua.testing.registration_form.entity.RoleType;
 import ua.testing.registration_form.entity.User;
 
 @Service
 public class RegFormService implements IRegFormControllerToService {
 
-    private RepoRegManager rrm;
+    private final RepoRegManager rrm;
 
     @Autowired
     public RegFormService(RepoRegManager rrm) {
@@ -17,11 +18,12 @@ public class RegFormService implements IRegFormControllerToService {
     }
 
     @Override
-    public void fromRegFormController(NoteDTO note) {
+    public void fromRegFormController(NoteDTO note) throws RuntimeException {
         User user = new User();
         user.setName(note.getName());
         user.setLogin(note.getLogin());
-        user.setPassword("1111");
+        user.setPassword(note.getPassword());
+        user.setRole(RoleType.ROLE_USER);
         rrm.saveUser(user);
     }
 
