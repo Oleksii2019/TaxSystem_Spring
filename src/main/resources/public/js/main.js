@@ -6,6 +6,8 @@ angular.module("login_form",[])
         let exampleInputPasswordEl = document.getElementById('exampleInputPassword1');
         let exampleInputLoginLabel = document.getElementById('exampleInputLoginLabel');
         let exampleInputPasswordLabel = document.getElementById('exampleInputPasswordLabel');
+        let messageLoginOk = document.getElementById('messageLoginOK').innerText;
+        let messageLoginErr = document.getElementById('messageLoginErr').innerText;
         exampleInputLoginEl.addEventListener('input', () => {
             exampleInputLoginLabel.style.color = 'black';
             exampleInputPasswordLabel.style.color = 'black';
@@ -22,7 +24,7 @@ angular.module("login_form",[])
             }).then(
                 (data) => {
                     resultMessageEl.style.color = 'green';
-                    $scope.message = "Доступ разрешен";
+                    $scope.message = messageLoginOk; //"Доступ разрешен";
                     exampleInputLoginEl.value = '';
                     exampleInputPasswordEl.value = '';
                     console.log("Ok");
@@ -33,7 +35,7 @@ angular.module("login_form",[])
                     resultMessageEl.style.color = 'red';
                     exampleInputLoginEl.value = '';
                     exampleInputPasswordEl.value = '';
-                    $scope.message = "При авторизации произошла ошибка"
+                    $scope.message = messageLoginErr; //"При авторизации произошла ошибка"
                     console.log("Ex");
                 }
             );
