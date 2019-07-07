@@ -8,13 +8,39 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+    <style>
+        table.text  {
+            height: 35px;
+            width:  100%; /* Ширина таблицы */
+            border-spacing: 0; /* Расстояние между ячейками */
+            background:#ccc;
+            padding:5px;
+            margin:5px 0px
+        }
+        table.text td {
+            width: 50%; /* Ширина ячеек */
+            vertical-align: middle; /* Выравнивание по верхнему краю */
+        }
+        td.rightcol { /* Правая ячейка */
+            text-align: right; /* Выравнивание по правому краю */
+        }
+    </style>
 </head>
 <body ng-app="login_form" ng-controller="AppCtrl">
-<div style="text-align: right;padding:5px;margin:5px 0px;background:#ccc;">
-    <a th:href="@{/login?lang=en}">English</a>
-    &nbsp;|&nbsp;
-    <a th:href="@{/login?lang=uk}">Ukrainian</a>
-</div>
+<table class="text">
+    <tr>
+        <td>
+            <a href="/">Home</a>
+            &nbsp;|&nbsp;
+            <a href="/reg_form">Registration</a>
+        </td>
+        <td class="rightcol">
+            <a th:href="@{/login?lang=en}">English</a>
+            &nbsp;|&nbsp;
+            <a th:href="@{/login?lang=uk}">Ukrainian</a>
+        </td>
+    </tr>
+</table>
 <div class="col-md-8 col-md-offset-2">
     <h1 th:text="#{login.main.form}">Login form's Main</h1>
 </div>

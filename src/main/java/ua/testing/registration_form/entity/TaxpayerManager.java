@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.testing.registration_form.DAO.TaxpayerRepository;
-import ua.testing.registration_form.dto.NoteDTO;
 import ua.testing.registration_form.service.ILoginService;
 import ua.testing.registration_form.service.IRegService;
 
@@ -59,11 +58,12 @@ public class TaxpayerManager implements ILoginService, IRegService {
     public void saveNewTaxpayer(String name, String login, String password)
             throws RuntimeException {
         if (checkExistTaxpayerInBase(login)) {
-            Taxpayer taxpayer = new Taxpayer();
-            taxpayer.setName(name);
-            taxpayer.setLogin(login);
-            taxpayer.setPassword(password);
-            taxpayer.setRole(RoleType.ROLE_USER);
+            Taxpayer taxpayer = Taxpayer.builder()
+                    .name(name)
+                    .login(login)
+                    .password(password)
+                    .role(RoleType.ROLE_USER)
+                    .build();
             try {
                 tr.save(taxpayer); // В базу
             } catch(RuntimeException ex) {

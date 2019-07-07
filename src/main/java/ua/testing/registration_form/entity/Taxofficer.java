@@ -3,6 +3,7 @@ package ua.testing.registration_form.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,12 +13,11 @@ import javax.persistence.*;
 @ToString
 
 @Entity
-@Table(name="taxpayers")
-//       uniqueConstraints={@UniqueConstraint(columnNames={"login"})})
-public class Taxpayer {
+@Table(name="taxofficers")
+public class Taxofficer {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -30,12 +30,11 @@ public class Taxpayer {
     @Column(name = "password", nullable = false)
     private String password;
 
-//    @Enumerated(EnumType.STRING)
+    //    @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private RoleType role;
 
-    @ManyToOne
-    @JoinColumn(name = "taxofficer")
-    private  Taxofficer taxofficer;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "taxofficer")
+    private List<Taxpayer> taxpayers;
 
 }

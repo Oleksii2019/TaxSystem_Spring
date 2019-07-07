@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.testing.registration_form.DAO.TaxpayerRepository;
 import ua.testing.registration_form.dto.NoteDTO;
 import ua.testing.registration_form.entity.Taxpayer;
-import ua.testing.registration_form.service.IRegService;
 
 @Slf4j
 @RestController
