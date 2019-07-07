@@ -2,22 +2,18 @@ package ua.testing.registration_form.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.testing.registration_form.controller.ILoginController;
 import ua.testing.registration_form.dto.UserDTO;
-import ua.testing.registration_form.entity.RepoRegManager;
 
 @Service
-public class LoginFormService implements ILoginFromController {
-
-    private final RepoRegManager rrm;
+public class LoginService implements ILoginController {
 
     @Autowired
-    public LoginFormService(RepoRegManager rrm) {
-        this.rrm = rrm;
-    }
+    ILoginService ls;
 
     @Override
     public boolean checkLogin(UserDTO user) {
-        return rrm.checkUserByLogin(user.getLogin());
+        return ls.checkLogin(user.getLogin(), user.getPassword());
     }
 
 }

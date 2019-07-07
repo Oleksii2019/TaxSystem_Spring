@@ -12,19 +12,26 @@ import javax.persistence.*;
 @ToString
 
 @Entity
-public class User {
+@Table(name="taxpayers")
+//       uniqueConstraints={@UniqueConstraint(columnNames={"login"})})
+public class Taxpayer {
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
-    private Integer id;
+    @Column(name = "id", nullable = false)
+    private Long id;
 
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "login", nullable = false)
     private String login;
 
+    @Column(name = "password", nullable = false)
     private String password;
 
 //    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
     private RoleType role;
 
 }

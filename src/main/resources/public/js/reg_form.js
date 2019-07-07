@@ -35,7 +35,6 @@ angular.module("registration_form",[])
                 },
                 (error) => {
                     console.log("Ex");
-                    console.log(error.data.message);
                     console.log(auth);
                     resultMessageEl.style.color = 'red';
                     $scope.message = messageRegErr; // 'При регистрации произошла ошибка';

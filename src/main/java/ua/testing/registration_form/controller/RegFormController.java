@@ -5,34 +5,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ua.testing.registration_form.DAO.UserRepository;
+import ua.testing.registration_form.DAO.TaxpayerRepository;
 import ua.testing.registration_form.dto.NoteDTO;
-import ua.testing.registration_form.entity.User;
-import ua.testing.registration_form.service.IRegFormControllerToService;
+import ua.testing.registration_form.entity.Taxpayer;
+import ua.testing.registration_form.service.IRegService;
 
 @Slf4j
 @RestController
 @RequestMapping(value = "/")
 public class RegFormController {
 
-    private final IRegFormControllerToService r;
-    private final UserRepository db;
-
     @Autowired
-    public RegFormController(IRegFormControllerToService r,
-                             UserRepository db) {
-        this.r = r;
-        this.db = db;
-    }
+    IRegController rc;
 
     @RequestMapping(value = "not_format/users", method = RequestMethod.GET)
-    public Iterable<User> loadAllUsers() {
-        return db.findAll();
+    public Iterable<Taxpayer> loadAllTaxpayers() {
+        return rc.getAllTaxpayers();
     }
 
     @RequestMapping(value = "/reg_form", method = RequestMethod.POST)
-    public void getRegFormController(NoteDTO note){
-        r.fromRegFormController(note);
+    public void getUserFromRegForm(NoteDTO note){
+        rc.fromRegForm(note);
         log.info("{}", note);
     }
 
