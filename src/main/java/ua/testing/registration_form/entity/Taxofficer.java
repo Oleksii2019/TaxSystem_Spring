@@ -3,7 +3,7 @@ package ua.testing.registration_form.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -34,7 +34,10 @@ public class Taxofficer {
     @Column(name = "role", nullable = false)
     private RoleType role;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "taxofficer")
-    private List<Taxpayer> taxpayers;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taxofficer")
+    private Set<Taxpayer> taxpayers;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taxofficer")
+    private Set<ReplacementRequest> replacementRequests;
 
 }

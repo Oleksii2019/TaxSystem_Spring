@@ -3,6 +3,7 @@ package ua.testing.registration_form.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -37,5 +38,12 @@ public class Taxpayer {
     @ManyToOne
     @JoinColumn(name = "taxofficer")
     private  Taxofficer taxofficer;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taxpayer")
+    private Set<Report> reports;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taxpayer")
+    private Set<ReplacementRequest> replacementRequests;
+
 
 }

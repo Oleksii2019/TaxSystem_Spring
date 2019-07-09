@@ -3,11 +3,13 @@ package ua.testing.registration_form.entity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ua.testing.registration_form.DAO.TaxofficerRepository;
 import ua.testing.registration_form.DAO.TaxpayerRepository;
 import ua.testing.registration_form.service.ILoginService;
 import ua.testing.registration_form.service.IRegService;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 @Slf4j
 @Repository
@@ -17,6 +19,9 @@ public class TaxpayerManager implements ILoginService, IRegService {
     @Autowired
     TaxpayerRepository tr;
 
+    @Autowired
+    TaxofficerRepository tor;
+
     public TaxpayerManager() {
         taxpayers = new ArrayList<>();
     }
@@ -24,7 +29,7 @@ public class TaxpayerManager implements ILoginService, IRegService {
     private void getTaxpayersFromDB() throws RuntimeException {
         taxpayers.clear();
         try {
-            tr.findAll().forEach(x -> taxpayers.add(x));
+            taxpayers.addAll(tr.findAll());
         } catch(RuntimeException ex) {
             throw new ArrayStoreException("x_getDB");
         }
@@ -33,25 +38,17 @@ public class TaxpayerManager implements ILoginService, IRegService {
     private boolean checkExistTaxpayerInBase(String login)
             throws RuntimeException {
         getTaxpayersFromDB();
-        for (int i = 0; i < taxpayers.size(); i++) {
-            if (login.equals(taxpayers.get(i).getLogin())) {
-                return false;
-            }
-        }
-        return true;
+        return IntStream.range(0, taxpayers.size()).noneMatch(i ->
+                login.equals(taxpayers.get(i).getLogin()));
     }
 
     @Override
     public boolean checkLogin(String login, String password)
             throws RuntimeException {
         getTaxpayersFromDB();
-        for (int i = 0; i < taxpayers.size(); i++) {
-            if (login.equals(taxpayers.get(i).getLogin())
-                    && password.equals(taxpayers.get(i).getPassword())) {
-                return false;
-            }
-        }
-        return true;
+        return IntStream.range(0, taxpayers.size()).noneMatch(i ->
+                login.equals(taxpayers.get(i).getLogin())
+                && password.equals(taxpayers.get(i).getPassword()));
     }
 
     @Override
@@ -62,10 +59,11 @@ public class TaxpayerManager implements ILoginService, IRegService {
                     .name(name)
                     .login(login)
                     .password(password)
-                    .role(RoleType.ROLE_USER)
+                    .role(RoleType.ROLE_PUSER)
+                    .taxofficer(tor.getOne(1L))
                     .build();
             try {
-                tr.save(taxpayer); // В базу
+                tr.save(taxpayer);
             } catch(RuntimeException ex) {
                 log.info("{}", taxpayer);
                 throw new IllegalArgumentException("x_DB");
