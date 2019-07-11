@@ -41,6 +41,10 @@ public class Report {
     @JoinColumn(name = "taxpayer")
     private Taxpayer taxpayer;
 
+    @ManyToOne
+    @JoinColumn(name = "taxofficer")
+    private Taxofficer taxofficer;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "report")
     private Set<ReportAlteration> reportAlterations;
 

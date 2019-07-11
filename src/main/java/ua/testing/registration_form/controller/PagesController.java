@@ -8,14 +8,24 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class PagesController {
 
-    @RequestMapping(value = "/sss")
+    @RequestMapping(value = "/")
     public String sssPage() {
-        return "sss";
+        return "index";
     }
 
-    @RequestMapping(value = "/login")
-    public String loginPage() {
-        return "log_form";
+    @RequestMapping(value = "/login_natural_person")
+    public String naturalPersonLoginPage() {
+        return "nperson_log_form";
+    }
+
+    @RequestMapping(value = "/login_juridical_person")
+    public String juridicalPersonLoginPage() {
+        return "jperson_log_form";
+    }
+
+    @RequestMapping(value = "/login_taxofficer")
+    public String taxOfficerLoginPage() {
+        return "officer_log_form";
     }
 
     @RequestMapping("/reg_form")

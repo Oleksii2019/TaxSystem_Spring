@@ -1,5 +1,6 @@
 angular.module("login_form",[])
     .controller("AppCtrl", function ($scope, $http) {
+        $('#goBtn').prop('disabled',true);
         $scope.auth = {};
         let resultMessageEl = document.getElementById('resultMessage');
         let exampleInputLoginEl = document.getElementById('exampleInputLogin1');
@@ -18,11 +19,12 @@ angular.module("login_form",[])
         $scope.sendForm = function(auth){
             $http({
                 method: "POST",
-                url: "/login",
+                url: "/login_juridical_person",
                 data: $.param(auth),
                 headers: { "Content-Type" : "application/x-www-form-urlencoded" }
             }).then(
                 (data) => {
+                    $('#goBtn').prop('disabled',false);
                     resultMessageEl.style.color = 'green';
                     $scope.message = messageLoginOk; //"Доступ разрешен";
                     exampleInputLoginEl.value = '';
@@ -30,6 +32,7 @@ angular.module("login_form",[])
                     console.log("Ok");
                 },
                 (error) => {
+                    $('#goBtn').prop('disabled',true);
                     exampleInputLoginLabel.style.color = 'red';
                     exampleInputPasswordLabel.style.color = 'red';
                     resultMessageEl.style.color = 'red';

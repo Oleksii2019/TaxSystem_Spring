@@ -38,6 +38,9 @@ public class Taxofficer {
     private Set<Taxpayer> taxpayers;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "taxofficer")
+    private Set<Report> reports;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taxofficer")
     private Set<ReplacementRequest> replacementRequests;
 
 }

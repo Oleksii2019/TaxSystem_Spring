@@ -9,6 +9,7 @@ import ua.testing.registration_form.service.ILoginService;
 import ua.testing.registration_form.service.IRegService;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 @Slf4j
@@ -46,6 +47,10 @@ public class TaxpayerManager implements ILoginService, IRegService {
     public boolean checkLogin(String login, String password)
             throws RuntimeException {
         getTaxpayersFromDB();
+        List<Taxpayer> l = tr.findByLoginEquals(login);
+
+//        boolean b = tr.findByLoginAndPasswordEquals(login, password);
+        //boolean b = tr.findByLoginFalse(login);
         return IntStream.range(0, taxpayers.size()).noneMatch(i ->
                 login.equals(taxpayers.get(i).getLogin())
                 && password.equals(taxpayers.get(i).getPassword()));
