@@ -9,11 +9,17 @@ import ua.testing.registration_form.dto.UserDTO;
 public class LoginService implements ILoginController {
 
     @Autowired
-    ILoginService ls;
+    IPayerLoginService ps;
+
+    @Autowired
+    IOfficerLoginService os;
 
     @Override
-    public boolean checkLogin(UserDTO user) {
-        return ls.checkLogin(user.getLogin(), user.getPassword());
+    public boolean checkLogin(UserDTO user,  boolean isPayer) {
+        if(isPayer)
+            return ps.checkLogin(user.getLogin(), user.getPassword());
+        else
+            return os.checkLogin(user.getLogin(), user.getPassword());
     }
 
 }

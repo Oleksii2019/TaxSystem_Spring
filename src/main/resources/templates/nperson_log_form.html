@@ -30,9 +30,9 @@
 <table class="text">
     <tr>
         <td>
-            <a href="/">Home</a>
+            <a href="/" th:text="#{home.menu}">Home</a>
             &nbsp;|&nbsp;
-            <a href="/reg_form">Registration</a>
+            <a href="/reg_form" th:text="#{reg.menu}">Registration</a>
         </td>
         <td class="rightcol">
             <a th:href="@{/login_natural_person?lang=en}">English</a>

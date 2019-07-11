@@ -1,5 +1,5 @@
 package ua.testing.registration_form.service;
 
-public interface ILoginService {
+public interface IOfficerLoginService {
     boolean checkLogin(String login, String password);
 }

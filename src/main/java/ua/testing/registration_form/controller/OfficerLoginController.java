@@ -9,11 +9,11 @@ import ua.testing.registration_form.dto.UserDTO;
 import ua.testing.registration_form.entity.RoleType;
 
 @RestController
-@RequestMapping(value = "/login_juridical_person")
-public class JPersonLoginController  extends PersonLoginController {
+@RequestMapping(value = "/login_taxofficer")
+public class OfficerLoginController  extends PersonLoginController  {
 
     public void getLogin(UserDTO user) throws Exception {
-        if (lc.checkLogin(user, true)) {
+        if (lc.checkLogin(user, false)) {
             throw new Exception();
         }
         loginToSecurity(user);
@@ -24,7 +24,7 @@ public class JPersonLoginController  extends PersonLoginController {
                 user.getLogin(),
                 user.getPassword(),
                 AuthorityUtils.createAuthorityList
-                        (RoleType.ROLE_PUSER.toString()));
+                        (RoleType.ROLE_OUSER.toString()));
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
 

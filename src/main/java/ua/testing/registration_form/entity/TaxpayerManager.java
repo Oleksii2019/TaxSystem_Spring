@@ -3,9 +3,8 @@ package ua.testing.registration_form.entity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ua.testing.registration_form.DAO.TaxofficerRepository;
 import ua.testing.registration_form.DAO.TaxpayerRepository;
-import ua.testing.registration_form.service.ILoginService;
+import ua.testing.registration_form.service.IPayerLoginService;
 import ua.testing.registration_form.service.IRegService;
 
 import java.util.ArrayList;
@@ -14,14 +13,14 @@ import java.util.stream.IntStream;
 
 @Slf4j
 @Repository
-public class TaxpayerManager implements ILoginService, IRegService {
+public class TaxpayerManager implements IPayerLoginService, IRegService {
     private ArrayList<Taxpayer> taxpayers;
 
     @Autowired
     TaxpayerRepository tr;
 
     @Autowired
-    TaxofficerRepository tor;
+    TaxOfficerManager tom;
 
     public TaxpayerManager() {
         taxpayers = new ArrayList<>();
@@ -65,7 +64,7 @@ public class TaxpayerManager implements ILoginService, IRegService {
                     .login(login)
                     .password(password)
                     .role(RoleType.ROLE_PUSER)
-                    .taxofficer(tor.getOne(1L))
+                    .taxofficer(tom.getOneTaxofficer())
                     .build();
             try {
                 tr.save(taxpayer);
