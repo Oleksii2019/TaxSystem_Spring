@@ -20,14 +20,16 @@ angular.module("users_form", [])
                     console.log("Read");
                     for (let i = 0; i < Object.keys(data.data).length; i++) {
                         let option = document.createElement("option");
-                        let asses_var = " - Assessed";
+                        let asses_var = " - Assessed: " + data.data[i].note.toString();
                         if(data.data[i].assessed === false) {
                             asses_var = " - Not assessed";
                         }
                         let temp = (i + 1).toString() + ". " + "Report "
                             + data.data[i].creationTime.toString()
                             + asses_var;
-                        option.setAttribute("value", data.data[i].creationTime.toString());
+                        option.setAttribute("value",
+                            data.data[i].taxpayerLogin.toString() + ":-"
+                            + data.data[i].creationTime.toString());
                         option.innerHTML = temp.toString();
                         select.appendChild(option);
                     }

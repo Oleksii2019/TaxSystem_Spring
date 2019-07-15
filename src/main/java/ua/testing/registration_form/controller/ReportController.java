@@ -28,13 +28,12 @@ public class ReportController {
     }
 
     @RequestMapping(value = "/payer_report_list", method = RequestMethod.POST)
-    public String getReportForPayerFromForm(String  reportlist) throws Exception {
-        log.info("{}", reportlist);
-        String loginName = loginFromSecurity();
-        log.info("{}", loginName);
-        //ReportDTO reportDTO = createNewReport(loginName);
-        //rc.saveNewReport(reportDTO);
-        return "+++";
+    public String getReportForPayerFromForm(String report) throws Exception {
+        ReportDTO reportDTO = rc.getTaxpayerReportDTOByLoginAndTime(report);
+        reportDTO.setAssessed(false);
+        reportDTO.setNote("");
+        rc.updateReport(reportDTO);
+        return "Done";
     }
 
     @RequestMapping(value = "/payer_report_list/creation", method = RequestMethod.POST)

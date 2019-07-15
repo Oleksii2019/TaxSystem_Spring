@@ -13,5 +13,4 @@ public interface IReportService {
     List<Report> getTaxpayerReportByLoginAndTime(String taxpayerLogin,
                                                  LocalDateTime dateTime);
     void deleteReport(ReportDTO reportDTO);
-
 }

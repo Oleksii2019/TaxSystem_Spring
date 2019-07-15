@@ -1,6 +1,7 @@
 package ua.testing.registration_form.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,7 +29,7 @@ public class ReportAlteration {
     private String note;
 
     @Column(name = "accepted")
-    @org.hibernate.annotations.ColumnDefault("false")
+    @ColumnDefault("false")
     private boolean accepted;
 
     @Column(name = "accept_time")

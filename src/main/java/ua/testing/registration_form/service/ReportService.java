@@ -3,8 +3,10 @@ package ua.testing.registration_form.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.testing.registration_form.controller.IReportController;
+import ua.testing.registration_form.dto.AltReportDTO;
 import ua.testing.registration_form.dto.ReportDTO;
 import ua.testing.registration_form.entity.Report;
+import ua.testing.registration_form.entity.ReportAlteration;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,13 +19,16 @@ public class ReportService implements IReportController {
     @Autowired
     IReportService rs;
 
+    @Autowired
+    IAltReportService ars;
+
     @Override
     public void saveNewReport(ReportDTO reportDTO) {
         rs.saveNewReport(reportDTO);
     }
 
     @Override
-    public List<ReportDTO> getTaxpayerReportDTO(String taxpayerlogin) {
+    public List<ReportDTO> getTaxpayerReportDTO(String taxpayerlogin) throws RuntimeException {
         List<Report> lr = rs.getTaxpayerReports(taxpayerlogin);
         List<ReportDTO> lrDTO = new ArrayList<>();
         IntStream.range(0, lr.size()).forEach(i ->
@@ -34,10 +39,24 @@ public class ReportService implements IReportController {
                      .acceptTime(lr.get(i).getAcceptTime())
                      .taxpayerLogin(lr.get(i).getTaxpayer().getLogin())
                      .taxofficerLogin(lr.get(i).getTaxofficer().getLogin())
+                     .note(getNoteFromAltReports(lr, i))
                      .build()
                 )
         );
         return lrDTO;
+    }
+
+    public String getNoteFromAltReports(List<Report> lr, int i) {
+        String str;
+        if (lr.get(i).getReportAlterations().stream()
+                .anyMatch(c -> !c.isAccepted())) {
+            str = lr.get(i).getReportAlterations().stream()
+                    .filter(c -> !c.isAccepted())
+                    .findFirst().get().getNote();
+        } else {
+            str = "";
+        }
+        return str;
     }
 
     @Override
@@ -78,15 +97,43 @@ public class ReportService implements IReportController {
 
     @Override
     public void updateReport(ReportDTO reportDTO) {
+        List<Report> lr = rs.getTaxpayerReportByLoginAndTime(
+                reportDTO.getTaxpayerLogin(),
+                reportDTO.getCreationTime());
+
+        List<ReportAlteration> ral = ars.getAltReportsForReport(lr.get(0));
+
+        if (!reportDTO.isAssessed() &&
+                ral.stream().anyMatch(c -> !c.isAccepted())) {
+            ReportAlteration ra = ral.stream()
+                    .filter(c -> !c.isAccepted())
+                    .findFirst().get();
+            ra.setAccepted(true);
+            ra.setAcceptTime(LocalDateTime.now());
+        }
+
         rs.deleteReport(reportDTO);
         rs.saveNewReport(reportDTO);
-        // TODO Update or/and add report_alternation
-        if (reportDTO.isAccepted()) {
-            // Update
-        } else {
-            // Update and add
+
+        lr = rs.getTaxpayerReportByLoginAndTime(
+                reportDTO.getTaxpayerLogin(),
+                reportDTO.getCreationTime());
+
+        ars.deleteAltReports(ral);
+
+        Report report = lr.get(0);
+        IntStream.range(0, ral.size()).forEach(i -> ral.get(i).setReport(report));
+
+        ars.saveAltReports(ral);
+
+        if (!reportDTO.isAccepted()) {
+            AltReportDTO arDTO = AltReportDTO.builder()
+                .creationTime(LocalDateTime.now())
+                .note(reportDTO.getNote())
+                .report(report)
+                .build();
+            ars.saveNewAltReport(arDTO);
         }
     }
-
 
 }
