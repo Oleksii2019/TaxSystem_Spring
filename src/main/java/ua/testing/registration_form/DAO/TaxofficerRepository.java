@@ -9,5 +9,4 @@ import java.util.List;
 public interface TaxofficerRepository extends JpaRepository<Taxofficer, Long> {
     List<Taxpayer> findByLoginEquals(String login);
 
-
 }

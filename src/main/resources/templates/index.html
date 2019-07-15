@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Main</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         table.text  {
             height: 35px;
@@ -35,20 +37,20 @@
         </tr>
     </table>
     <div class="col-md-8 col-md-offset-2">
-        <h1 th:text="#{task.name}">Задача 5. Налоговая</h1>
+        <h1 style="margin-right:0px" th:text="#{task.name}">Задача 5. Налоговая__________________________________________________</h1>
     </div>
     <form action="/login_juridical_person">
-        <button class="btn btn-success" style="margin-top:30px" th:text="#{to.jpersonlogin.button.lable}">
+        <button class="btn btn-success" style="margin-top:30px; margin-left:40px" th:text="#{to.jpersonlogin.button.lable}">
             Juridical person login
         </button>
     </form>
     <form action="/login_natural_person">
-        <button class="btn btn-success" style="margin-top:30px" th:text="#{to.npersonlogin.button.lable}">
+        <button class="btn btn-success" style="margin-top:30px; margin-left:40px" th:text="#{to.npersonlogin.button.lable}">
             Natural person login
         </button>
     </form>
     <form action="/login_taxofficer">
-        <button class="btn btn-success" style="margin-top:30px" th:text="#{to.officerlogin.button.lable}">
+        <button class="btn btn-success" style="margin-top:30px; margin-left:40px" th:text="#{to.officerlogin.button.lable}">
             Tax officer login
         </button>
     </form>

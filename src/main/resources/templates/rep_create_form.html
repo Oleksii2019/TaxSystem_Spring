@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Create report</title>
+    <style>
+        table.text  {
+            height: 35px;
+            width:  100%;
+            border-spacing: 0;
+            background:#ccc;
+            padding:5px;
+            margin:5px 0px
+        }
+        table.text td {
+            width: 50%;
+            vertical-align: middle;
+        }
+        td.rightcol {
+            text-align: right;
+        }
+    </style>
+</head>
+<body  ng-app="users_form" ng-controller="UserCtrl">
+<table class="text" >
+    <tr>
+        <td>
+            <a href="/logout" th:text="#{logout.menu}">Logout</a>
+        </td>
+        <td class="rightcol">
+            <a th:href="@{/payer_report_list/creation?lang=en}">English</a>
+            &nbsp;|&nbsp;
+            <a th:href="@{/payer_report_list/creation?lang=uk}">Ukrainian</a>
+        </td>
+    </tr>
+</table>
+<h1 style="margin-left: 40px" th:text="#{report.creation.form}">Report creation</h1>
+<p style="margin-left: 40px" th:text="#{report.creation.message}">
+    Вами сформирован и подготовлен к отправке отчет.
+</p>
+<form action="/payer_report_list">
+        <button id="chBtn" class="btn btn-success" style="margin-top:10px; margin-left: 40px" name="sendBtn" th:text="#{send.report.button.lable}">
+            Send report
+        </button>
+    <button id="crBtn" class="btn btn-success" style="margin-top:10px; margin-left: 40px" name="cancelBtn" th:text="#{cancel.button.lable}">
+        Cancel
+    </button>
+</form>
+<script type="text/javascript" src="/js/rep_create_form.js"></script>
+</body>
+</html>

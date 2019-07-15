@@ -2,21 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Users</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
 </head>
 <body ng-app="users_form" ng-controller="UserCtrl">
 <h1 data-ng-init="getUsers()">Registred Users</h1>
-
 <table ng-model="users">
     <tr>
-        <th>Id</th>
         <th>Name</th>
         <th>Login</th>
         <th>Password</th>
     </tr>
     <tr ng-repeat="u in users">
-        <td>{{u.id}}</td>
         <td>{{u.name}}</td>
         <td>{{u.login}}</td>
         <td>{{u.password}}</td>

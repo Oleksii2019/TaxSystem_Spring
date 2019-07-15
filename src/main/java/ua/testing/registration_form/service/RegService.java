@@ -6,6 +6,10 @@ import ua.testing.registration_form.controller.IRegController;
 import ua.testing.registration_form.dto.NoteDTO;
 import ua.testing.registration_form.entity.Taxpayer;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
+
 @Service
 public class RegService implements IRegController {
 
@@ -18,7 +22,15 @@ public class RegService implements IRegController {
     }
 
     @Override
-    public Iterable<Taxpayer> getAllTaxpayers() {
-        return rs.getAllTaxpayers();
+    public List<NoteDTO> getAllTaxpayers() {
+        List<Taxpayer> taxpayerList = rs.getAllTaxpayers();
+        List<NoteDTO> noteDTOList = new ArrayList<>();
+        IntStream.range(0, taxpayerList.size()).forEach(i ->
+            noteDTOList.add(NoteDTO.builder()
+                       .name(taxpayerList.get(i).getName())
+                       .login(taxpayerList.get(i).getLogin())
+                       .password(taxpayerList.get(i).getPassword())
+                       .build()));
+        return noteDTOList;
     }
 }

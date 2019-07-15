@@ -1,7 +1,9 @@
 package ua.testing.registration_form.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -26,6 +28,21 @@ public class PagesController {
     @RequestMapping(value = "/login_taxofficer")
     public String taxOfficerLoginPage() {
         return "officer_log_form";
+    }
+
+    @RequestMapping(value = "/payer_report_list")
+    public String payerReportListPage() {
+        return "payer_report_list_form";
+    }
+
+    @RequestMapping(value = "/payer_report_list/creation") // , method = RequestMethod.GET
+    public String payerReportCreationPage() {
+        return "rep_create_form";
+    }
+
+    @RequestMapping(value = "/officer_report_list")
+    public String officerReportListPage() {
+        return "officer_report_list_form";
     }
 
     @RequestMapping("/reg_form")

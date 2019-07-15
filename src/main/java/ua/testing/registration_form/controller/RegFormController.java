@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.testing.registration_form.dto.NoteDTO;
-import ua.testing.registration_form.entity.Taxpayer;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -16,8 +17,9 @@ public class RegFormController {
     @Autowired
     IRegController rc;
 
+    //@ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "not_format/users", method = RequestMethod.GET)
-    public Iterable<Taxpayer> loadAllTaxpayers() {
+    public List<NoteDTO> loadAllTaxpayers() {
         return rc.getAllTaxpayers();
     }
 

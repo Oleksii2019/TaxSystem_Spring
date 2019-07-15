@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Lists</title>
+    <style>
+        table.text  {
+            height: 35px;
+            width:  100%;
+            border-spacing: 0;
+            background:#ccc;
+            padding:5px;
+            margin:5px 0px
+        }
+        table.text td {
+            width: 50%;
+            vertical-align: middle;
+        }
+        td.rightcol {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<table class="text" >
+    <tr>
+        <td>
+            <a href="/logout" th:text="#{logout.menu}">Logout</a>
+        </td>
+        <td class="rightcol">
+            <a th:href="@{/officer_report_list?lang=en}">English</a>
+            &nbsp;|&nbsp;
+            <a th:href="@{/officer_report_list?lang=uk}">Ukrainian</a>
+        </td>
+    </tr>
+</table>
+<div ng-app="users_form" ng-controller="UserCtrl">
+    <h1 data-ng-init="getReports()" style="margin-left: 40px" th:text="#{payers.report.list.form}">List of payers' reports</h1>
+    <form action="/officer_report_list" method="post">
+        <select id="listofreport" style="margin-left: 40px" name="report" size="5"></select>
+        <p>
+            <button id="accBtn" class="btn btn-success" name="accBtn" style="margin-top:10px; margin-left: 40px" disabled th:text="#{accept.report.button.lable}">
+                Accept report
+            </button>
+        </p>
+        <textarea style="margin-top:20px; margin-left: 40px" name="reclText" th:attr="placeholder=#{reclamation.text.lable}"></textarea>
+        <p>
+            <button id="reclBtn" class="btn btn-success" name="reclBtn" style="margin-top:10px; margin-left: 40px" disabled th:text="#{send.reclamation.button.lable}">
+                Send reclamation
+            </button>
+        </p>
+    </form>
+</div>
+<script type="text/javascript" src="/js/officer_rep_list_form.js"></script>
+</body>
+</html>

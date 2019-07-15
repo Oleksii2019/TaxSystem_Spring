@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Lists</title>
+    <style>
+        table.text  {
+            height: 35px;
+            width:  100%;
+            border-spacing: 0;
+            background:#ccc;
+            padding:5px;
+            margin:5px 0px
+        }
+        table.text td {
+            width: 50%;
+            vertical-align: middle;
+        }
+        td.rightcol {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<table class="text" >
+    <tr>
+        <td>
+<!--            <var>nikname</var>-->
+<!--            &nbsp;|&nbsp;-->
+            <a href="/logout" th:text="#{logout.menu}">Logout</a>
+        </td>
+        <td class="rightcol">
+            <a th:href="@{/payer_report_list?lang=en}">English</a>
+            &nbsp;|&nbsp;
+            <a th:href="@{/payer_report_list?lang=uk}">Ukrainian</a>
+        </td>
+    </tr>
+</table>
+<div ng-app="users_form" ng-controller="UserCtrl">
+    <h1 data-ng-init="getReports()" style="margin-left: 40px" th:text="#{payer.report.list.form}">List of payer's reports</h1>
+<form action="#" method="post">
+    <select id="listofreport" style="margin-left: 40px" name="reportlist" size="5"></select>
+    <p>
+        <button id="chBtn" class="btn btn-success" style="margin-top:10px; margin-left: 40px" disabled th:text="#{edit.report.button.lable}">
+            Edit report
+        </button>
+    </p>
+</form>
+</div>
+<form action="/payer_report_list/creation" method="post">
+    <button class="btn btn-success" style="margin-top:20px; margin-left: 40px" th:text="#{create.report.button.lable}">
+        Create new report
+    </button>
+</form>
+
+<script type="text/javascript" src="/js/payer_rep_list_form.js"></script>
+</body>
+</html>
