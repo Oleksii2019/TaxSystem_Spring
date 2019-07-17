@@ -3,7 +3,7 @@ package ua.testing.registration_form.entity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ua.testing.registration_form.DAO.ReportRepository;
+import ua.testing.registration_form.dao.ReportRepository;
 import ua.testing.registration_form.dto.ReportDTO;
 import ua.testing.registration_form.service.IReportService;
 
@@ -85,4 +85,15 @@ public class ReportManager implements IReportService {
         }
         return lr;
     }
+
+    @Override
+    public Taxofficer getTaxofficerForTaxpayerLogin(String login) {
+        return tm.getTaxofficerForTaxpayerLogin(login);
+    }
+
+    @Override
+    public Taxpayer getTaxpayerByLogin(String login) {
+        return tm.getTaxpayerByLogin(login);
+    }
+
 }

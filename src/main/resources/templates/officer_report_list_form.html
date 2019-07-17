@@ -40,7 +40,7 @@
 </table>
 <div ng-app="users_form" ng-controller="UserCtrl">
     <h1 data-ng-init="getReports()" style="margin-left: 40px" th:text="#{payers.report.list.form}">List of payers' reports</h1>
-    <form action="/officer_report_list" method="post">
+    <form action="/officer_report_list/create" method="post">
         <select id="listofreport" style="margin-left: 40px" name="report" size="5"></select>
         <p>
             <button id="accBtn" class="btn btn-success" name="accBtn" style="margin-top:10px; margin-left: 40px" disabled th:text="#{accept.report.button.lable}">

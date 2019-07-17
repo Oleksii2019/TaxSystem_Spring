@@ -2,11 +2,10 @@ package ua.testing.registration_form.entity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ua.testing.registration_form.DAO.TaxofficerRepository;
+import ua.testing.registration_form.dao.TaxofficerRepository;
 import ua.testing.registration_form.service.IOfficerLoginService;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.IntStream;
 
 @Repository

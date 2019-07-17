@@ -3,7 +3,7 @@ package ua.testing.registration_form.entity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ua.testing.registration_form.DAO.TaxpayerRepository;
+import ua.testing.registration_form.dao.TaxpayerRepository;
 import ua.testing.registration_form.service.IPayerLoginService;
 import ua.testing.registration_form.service.IRegService;
 

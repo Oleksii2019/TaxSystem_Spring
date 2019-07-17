@@ -2,6 +2,8 @@ package ua.testing.registration_form.service;
 
 import ua.testing.registration_form.dto.ReportDTO;
 import ua.testing.registration_form.entity.Report;
+import ua.testing.registration_form.entity.Taxofficer;
+import ua.testing.registration_form.entity.Taxpayer;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,4 +15,8 @@ public interface IReportService {
     List<Report> getTaxpayerReportByLoginAndTime(String taxpayerLogin,
                                                  LocalDateTime dateTime);
     void deleteReport(ReportDTO reportDTO);
+
+    Taxofficer getTaxofficerForTaxpayerLogin(String login);
+
+    Taxpayer getTaxpayerByLogin(String login);
 }

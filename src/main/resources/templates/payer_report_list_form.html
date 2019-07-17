@@ -42,18 +42,21 @@
 </table>
 <div ng-app="users_form" ng-controller="UserCtrl">
     <h1 data-ng-init="getReports()" style="margin-left: 40px" th:text="#{payer.report.list.form}">List of payer's reports</h1>
-<form action="#" method="post">
+<form action="/payer_report_list/creation" method="post">
     <select id="listofreport" style="margin-left: 40px" name="report" size="5"></select>
     <p>
-        <button id="chBtn" class="btn btn-success" style="margin-top:10px; margin-left: 40px" disabled th:text="#{edit.report.button.lable}">
+        <button id="chBtn" name="editBtn" class="btn btn-success" style="margin-top:10px; margin-left: 40px" disabled th:text="#{edit.report.button.lable}">
             Edit report
         </button>
     </p>
 </form>
 </div>
 <form action="/payer_report_list/creation" method="post">
-    <button class="btn btn-success" style="margin-top:20px; margin-left: 40px" th:text="#{create.report.button.lable}">
+    <button class="btn btn-success" name="createBtn" style="margin-top:20px; margin-left: 40px" th:text="#{create.report.button.lable}">
         Create new report
+    </button>
+    <button class="btn btn-success" name="complaintBtn" style="margin-top:20px; margin-left: 40px" th:text="#{make.complaint.button.lable}">
+        Make complaint
     </button>
 </form>
 

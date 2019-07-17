@@ -3,10 +3,11 @@ package ua.testing.registration_form.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.testing.registration_form.controller.IReportController;
+import ua.testing.registration_form.dao.ReplacementRequestRepository;
 import ua.testing.registration_form.dto.AltReportDTO;
+import ua.testing.registration_form.dto.ReplacementDTO;
 import ua.testing.registration_form.dto.ReportDTO;
-import ua.testing.registration_form.entity.Report;
-import ua.testing.registration_form.entity.ReportAlteration;
+import ua.testing.registration_form.entity.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,6 +22,9 @@ public class ReportService implements IReportController {
 
     @Autowired
     IAltReportService ars;
+
+    @Autowired
+    ReplacementRequestRepository rrr;
 
     @Override
     public void saveNewReport(ReportDTO reportDTO) {
@@ -134,6 +138,26 @@ public class ReportService implements IReportController {
                 .build();
             ars.saveNewAltReport(arDTO);
         }
+    }
+
+    @Override
+    public Taxofficer getTaxofficerForTaxpayerLogin(String login) {
+        return rs.getTaxofficerForTaxpayerLogin(login);
+    }
+
+    @Override
+    public Taxpayer getTaxpayerByLogin(String login) {
+        return rs.getTaxpayerByLogin(login);
+    }
+
+    @Override
+    public void saveNewReplacementRequest(ReplacementDTO replacementDTO) {
+        rrr.save(ReplacementRequest.builder()
+            .creationTime(replacementDTO.getCreationTime())
+            .taxofficer(replacementDTO.getTaxofficer())
+            .taxpayer(replacementDTO.getTaxpayer())
+            .build()
+        );
     }
 
 }

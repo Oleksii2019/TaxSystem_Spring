@@ -3,53 +3,67 @@ package ua.testing.registration_form.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import ua.testing.registration_form.dto.ReplacementDTO;
 import ua.testing.registration_form.dto.ReportDTO;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Slf4j
-@RestController
+@Controller
 //@RequestMapping(value = "/")
 public class ReportController {
 
     @Autowired
     IReportController rc;
 
-    @RequestMapping(value = "/not_format/reports_payer", method = RequestMethod.GET)
-    public List<ReportDTO> loadTaxpayerReports() throws Exception {
-        return rc.getTaxpayerReportDTO(loginFromSecurity());
+    @RequestMapping(value = "/payer_report_list/creation", method = RequestMethod.POST)
+    public String modifyReportByPayer(String createBtn,
+                                      String complaintBtn,
+                                      String editBtn,
+                                      String report) throws Exception {
+        if (createBtn != null) {
+            createReportByPayer();
+        }
+        if (editBtn != null) {
+            editReportByPayer(report);
+        }
+        if (complaintBtn != null) {
+            complaintReportByPayer();
+        }
+
+        return "redirect:/payer_report_list";
     }
 
-    @RequestMapping(value = "/not_format/reports_officer", method = RequestMethod.GET)
-    public List<ReportDTO> loadOfficerReports() throws Exception {
-        return rc.getOfficerReportDTO(loginFromSecurity());
+    private void createReportByPayer() throws Exception  {
+        ReportDTO reportDTO = createNewReport(loginFromSecurity());
+        rc.saveNewReport(reportDTO);
     }
 
-    @RequestMapping(value = "/payer_report_list", method = RequestMethod.POST)
-    public String getReportForPayerFromForm(String report) throws Exception {
+    private void editReportByPayer(String report) throws Exception  {
         ReportDTO reportDTO = rc.getTaxpayerReportDTOByLoginAndTime(report);
         reportDTO.setAssessed(false);
         reportDTO.setNote("");
         rc.updateReport(reportDTO);
-        return "Done";
     }
 
-    @RequestMapping(value = "/payer_report_list/creation", method = RequestMethod.POST)
-    public String getCreateReportFromForm() throws Exception {
-        String loginName = loginFromSecurity();
-        log.info("{}", loginName);
-        ReportDTO reportDTO = createNewReport(loginName);
-        rc.saveNewReport(reportDTO);
-        return reportDTO.toString();
+    private void complaintReportByPayer() throws Exception  {
+        ReplacementDTO r = ReplacementDTO.builder()
+            .creationTime(LocalDateTime.now())
+            .taxofficer(rc.getTaxofficerForTaxpayerLogin(loginFromSecurity()))
+            .taxpayer(rc.getTaxpayerByLogin(loginFromSecurity()))
+            .build();
+        rc.saveNewReplacementRequest(r);
     }
 
-    @RequestMapping(value = "/officer_report_list", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/officer_report_list/create", method = RequestMethod.POST)
     public String getReportForOfficerFromForm(String report,
                                               String accBtn,
                                               String reclText,
-                                              String reclBtn) throws Exception {
+                                              String reclBtn
+                                              ) throws Exception {
         ReportDTO reportDTO = rc.getTaxpayerReportDTOByLoginAndTime(report);
         reportDTO.setAssessed(true);
         reportDTO.setTaxofficerLogin(loginFromSecurity());
@@ -63,16 +77,11 @@ public class ReportController {
             }
         }
         rc.updateReport(reportDTO);
-        return reportDTO.toString();
-    }
-
-    private String loginFromSecurity() throws Exception {
-        return SecurityContextHolder.getContext()
-               .getAuthentication().getPrincipal().toString();
+        return "redirect:/officer_report_list";
     }
 
 
-    public ReportDTO createNewReport(String loginName) {
+    private ReportDTO createNewReport(String loginName) {
         return  ReportDTO.builder()
                 .taxpayerLogin(loginName)
                 .creationTime(LocalDateTime.now())
@@ -81,10 +90,10 @@ public class ReportController {
                 .build();
     }
 
-
-    @RequestMapping(value = "/login/username")
-    public String loginNamePage() throws Exception {
-        return loginFromSecurity();
+    private String loginFromSecurity() throws Exception {
+        return SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal().toString();
     }
+
 
 }

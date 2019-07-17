@@ -21,13 +21,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                              "/not_format/users", "/login_juridical_person", "/login_taxofficer",
                              "/payer_report_list", "/payer_report_list/data_for_report_create",
                              "/payer_report_list/creation", "not_format/reports_payer", "/not_format/reports_officer",
-                             "/officer_report_list",
-                        "/login/username")
+                             "/officer_report_list", "/login/username")
                 .permitAll()
             .and()
                 .authorizeRequests()
                 .anyRequest().authenticated();
-//                .authenticated();  .permitAll()
+
+//                ROLE_OUSER,
+//                ROLE_PUSER
+//                        .antMatchers("/protected/**").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers("/confidential/**").access("hasRole('ROLE_SUPERADMIN')")
 
     }
 

@@ -5,12 +5,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ua.testing.registration_form.dto.ReportDTO;
 
 @Slf4j
 @Controller
 public class PagesController {
 
+
     @RequestMapping(value = "/")
+    @GetMapping(value = "/")
     public String sssPage() {
         return "index";
     }

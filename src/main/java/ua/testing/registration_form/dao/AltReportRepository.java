@@ -1,4 +1,4 @@
-package ua.testing.registration_form.DAO;
+package ua.testing.registration_form.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ua.testing.registration_form.entity.Report;
