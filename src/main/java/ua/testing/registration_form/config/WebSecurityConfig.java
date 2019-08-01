@@ -17,21 +17,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.logout().logoutUrl("/logout").logoutSuccessUrl("/");
         http.authorizeRequests() // Авторизация запросоа
-                .antMatchers("/", "/logout", "/login_natural_person", "/reg_form", "/users",
-                             "/not_format/users", "/login_juridical_person", "/login_taxofficer",
-                             "/payer_report_list", "/payer_report_list/data_for_report_create",
-                             "/payer_report_list/creation", "not_format/reports_payer", "/not_format/reports_officer",
-                             "/officer_report_list", "/login/username")
+                .antMatchers("/", "/logout", "/login_natural_person",
+                             "/reg_form", "/login_juridical_person",
+                             "/login_taxofficer") // , "/login/username"
                 .permitAll()
-            .and()
+                .antMatchers("/not_format/reports_officer",
+                             "/officer_report_list")
+                .access("hasRole('ROLE_OUSER')")
+                .antMatchers("/payer_report_list",
+                             "/payer_report_list/data_for_report_create",
+                             "/payer_report_list/creation",
+                             "not_format/reports_payer")
+                .access("hasRole('ROLE_PUSER')")
+                .antMatchers("/not_format/users", "/users")
+                .access("hasRole('ROLE_ADMIN')")
+                .and()
                 .authorizeRequests()
                 .anyRequest().authenticated();
-
-//                ROLE_OUSER,
-//                ROLE_PUSER
-//                        .antMatchers("/protected/**").access("hasRole('ROLE_ADMIN')")
-//                .antMatchers("/confidential/**").access("hasRole('ROLE_SUPERADMIN')")
-
     }
 
     @Override
@@ -41,11 +43,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                    //, "/static/**", "/css/**", "/js/**", "/images/**","/vendor/**","/fonts/**");
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("password")
-                .roles("USER");
-    }
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("user")
+//                .password("password")
+//                .roles("USER");
+//    }
 }

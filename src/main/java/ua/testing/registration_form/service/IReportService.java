@@ -10,10 +10,23 @@ import java.util.List;
 
 public interface IReportService {
     void saveNewReport(ReportDTO reportDTO);
+
     List<Report> getTaxpayerReports(String taxpayerlogin);
+
     List<Report> getOfficerReports(String officerLogin);
+
     List<Report> getTaxpayerReportByLoginAndTime(String taxpayerLogin,
                                                  LocalDateTime dateTime);
+
+    Report get_1_TaxpayerReportByLoginAndTime(String taxpayerLogin,
+                                              LocalDateTime dateTime);
+
+    void setReportAsAssessed(Report report);
+
+    void setReportAsNotAssessed(Report report);
+
+    void setReportAsAccepted(Report report);
+
     void deleteReport(ReportDTO reportDTO);
 
     Taxofficer getTaxofficerForTaxpayerLogin(String login);

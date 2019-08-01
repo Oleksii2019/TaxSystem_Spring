@@ -57,7 +57,6 @@ public class ReportController {
         rc.saveNewReplacementRequest(r);
     }
 
-
     @RequestMapping(value = "/officer_report_list/create", method = RequestMethod.POST)
     public String getReportForOfficerFromForm(String report,
                                               String accBtn,
@@ -70,13 +69,15 @@ public class ReportController {
         if (accBtn != null) {
             reportDTO.setAccepted(true);
             reportDTO.setAcceptTime(LocalDateTime.now());
+            rc.acceptReport(reportDTO);
         } else {
             if (reclBtn != null) {
                 reportDTO.setAccepted(false);
                 reportDTO.setNote(reclText);
+                rc.assessReport(reportDTO);
             }
         }
-        rc.updateReport(reportDTO);
+//        rc.updateReport(reportDTO);
         return "redirect:/officer_report_list";
     }
 

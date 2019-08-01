@@ -17,8 +17,18 @@ public class AltReportManager implements IAltReportService {
     AltReportRepository arr;
 
     @Override
+    public void setAltRaportAsAccepted(ReportAlteration altReport) {
+        arr.setAltRaportAsAccepted(altReport.getId());
+    }
+
+    @Override
     public List<ReportAlteration> getAltReportsForReport(Report report) {
         return arr.findAllByReport(report);
+    }
+
+    @Override
+    public ReportAlteration getAltNotAcceptedReportForReport(Report report) {
+        return arr.findNotAcceptedByReport(report);
     }
 
     @Override

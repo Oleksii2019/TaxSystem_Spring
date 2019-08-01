@@ -22,6 +22,22 @@ public class ReportManager implements IReportService {
     TaxpayerManager tm;
 
     @Override
+    public void setReportAsAccepted(Report report) {
+        rr.setReportAsAccepted(report.getId(), report.getAcceptTime(),
+                               report.getTaxofficer());
+    }
+
+    @Override
+    public void setReportAsNotAssessed(Report report) {
+        rr.setReportAsAssessed(report.getId());
+    }
+
+    @Override
+    public void setReportAsAssessed(Report report) {
+        rr.setReportAsAssessed(report.getId(), report.getTaxofficer());
+    }
+
+    @Override
     public void saveNewReport(ReportDTO reportDTO) throws RuntimeException {
         Report report = Report.builder()
                 .taxpayer(tm.getTaxpayerByLogin(reportDTO.getTaxpayerLogin()))
@@ -84,6 +100,18 @@ public class ReportManager implements IReportService {
             throw new IllegalArgumentException("x_DB");
         }
         return lr;
+    }
+
+    @Override
+    public Report get_1_TaxpayerReportByLoginAndTime(String taxpayerLogin,
+                                              LocalDateTime dateTime) {
+        Report r;
+        try {
+            r = rr.find_1_ByTaxpayerLoginAndTime(taxpayerLogin, dateTime);
+        } catch (RuntimeException ex) {
+            throw new IllegalArgumentException("x_DB");
+        }
+        return r;
     }
 
     @Override

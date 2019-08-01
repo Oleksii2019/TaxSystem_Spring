@@ -8,9 +8,12 @@ import java.util.List;
 
 public interface IAltReportService {
     List<ReportAlteration> getAltReportsForReport(Report report);
+    ReportAlteration getAltNotAcceptedReportForReport(Report report);
     void deleteAltReports(List<ReportAlteration> altReports);
     void saveAltReports(List<ReportAlteration> altReports);
     void saveNewAltReport(AltReportDTO altReportDTO);
+    void setAltRaportAsAccepted(ReportAlteration altReport);
+
 //    void updateAltReports(Report report);
 
 }

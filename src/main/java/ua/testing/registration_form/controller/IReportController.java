@@ -18,6 +18,10 @@ public interface IReportController {
 
     void updateReport(ReportDTO reportDTO);
 
+    void acceptReport(ReportDTO reportDTO);
+    
+    void assessReport(ReportDTO reportDTO);
+
     Taxofficer getTaxofficerForTaxpayerLogin(String login);
 
     Taxpayer getTaxpayerByLogin(String login);
