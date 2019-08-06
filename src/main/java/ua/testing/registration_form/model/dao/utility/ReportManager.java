@@ -1,11 +1,14 @@
-package ua.testing.registration_form.entity;
+package ua.testing.registration_form.model.dao.utility;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ua.testing.registration_form.dao.ReportRepository;
 import ua.testing.registration_form.dto.ReportDTO;
-import ua.testing.registration_form.service.IReportService;
+import ua.testing.registration_form.model.dao.ReportRepository;
+import ua.testing.registration_form.model.entity.Report;
+import ua.testing.registration_form.model.entity.Taxofficer;
+import ua.testing.registration_form.model.entity.Taxpayer;
+import ua.testing.registration_form.model.service.IReportService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,8 +26,12 @@ public class ReportManager implements IReportService {
 
     @Override
     public void setReportAsAccepted(Report report) {
-        rr.setReportAsAccepted(report.getId(), report.getAcceptTime(),
-                               report.getTaxofficer());
+        try {
+            rr.setReportAsAccepted(report.getId(), report.getAcceptTime(),
+                    report.getTaxofficer());
+        } catch (RuntimeException ex) {
+            log.info("{}", report.getCreationTime());
+        }
     }
 
     @Override
@@ -51,21 +58,6 @@ public class ReportManager implements IReportService {
             rr.save(report);
         } catch (RuntimeException ex) {
             log.info("{}", report.getCreationTime());
-            throw new IllegalArgumentException("x_DB");
-        }
-    }
-
-    @Override
-    public void deleteReport(ReportDTO reportDTO) {
-        try {
-            List<Report> lr = rr.findByTaxpayerLoginAndTime(
-                    reportDTO.getTaxpayerLogin(),
-                    reportDTO.getCreationTime());
-            IntStream.range(0, lr.size())
-                    .forEach(i ->
-                    rr.deleteById(lr.get(i).getId()));
-        } catch (RuntimeException ex) {
-            throw new IllegalArgumentException("x_DB");
         }
     }
 
@@ -92,18 +84,7 @@ public class ReportManager implements IReportService {
     }
 
     @Override
-    public List<Report> getTaxpayerReportByLoginAndTime(String taxpayerLogin, LocalDateTime dateTime) {
-        List<Report> lr;
-        try {
-            lr = rr.findByTaxpayerLoginAndTime(taxpayerLogin, dateTime);
-        } catch (RuntimeException ex) {
-            throw new IllegalArgumentException("x_DB");
-        }
-        return lr;
-    }
-
-    @Override
-    public Report get_1_TaxpayerReportByLoginAndTime(String taxpayerLogin,
+    public Report getTaxpayerReportByLoginAndTime(String taxpayerLogin,
                                               LocalDateTime dateTime) {
         Report r;
         try {

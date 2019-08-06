@@ -1,7 +1,6 @@
-package ua.testing.registration_form.service;
+package ua.testing.registration_form.model.service;
 
-import ua.testing.registration_form.dto.NoteDTO;
-import ua.testing.registration_form.entity.Taxpayer;
+import ua.testing.registration_form.model.entity.Taxpayer;
 
 import java.util.List;
 

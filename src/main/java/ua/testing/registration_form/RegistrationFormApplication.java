@@ -3,9 +3,6 @@ package ua.testing.registration_form;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- *
- */
 @SpringBootApplication
 public class RegistrationFormApplication {
 

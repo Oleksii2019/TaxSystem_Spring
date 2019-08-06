@@ -1,4 +1,4 @@
-package ua.testing.registration_form.entity;
+package ua.testing.registration_form.model.entity;
 
 import lombok.*;
 
@@ -13,11 +13,12 @@ import java.util.Set;
 //@ToString
 
 @Entity
-@Table(name="taxofficers")
-public class Taxofficer {
+@Table(name="taxpayers")
+//       uniqueConstraints={@UniqueConstraint(columnNames={"login"})})
+public class Taxpayer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -30,17 +31,19 @@ public class Taxofficer {
     @Column(name = "password", nullable = false)
     private String password;
 
-    //    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private RoleType role;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taxofficer")
-    private Set<Taxpayer> taxpayers;
+    @ManyToOne
+    @JoinColumn(name = "taxofficer")
+    private  Taxofficer taxofficer;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taxofficer")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taxpayer")
     private Set<Report> reports;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taxofficer")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taxpayer")
     private Set<ReplacementRequest> replacementRequests;
+
 
 }

@@ -1,6 +1,6 @@
 package ua.testing.registration_form.dto;
 
-import ua.testing.registration_form.entity.Report;
+import ua.testing.registration_form.model.entity.Report;
 
 import java.time.LocalDateTime;
 

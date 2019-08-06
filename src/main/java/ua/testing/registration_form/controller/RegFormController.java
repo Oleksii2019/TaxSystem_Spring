@@ -17,7 +17,6 @@ public class RegFormController {
     @Autowired
     IRegController rc;
 
-    //@ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "not_format/users", method = RequestMethod.GET)
     public List<NoteDTO> loadAllTaxpayers() {
         return rc.getAllTaxpayers();

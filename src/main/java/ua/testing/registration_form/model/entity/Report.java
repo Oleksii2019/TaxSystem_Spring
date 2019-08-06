@@ -1,4 +1,4 @@
-package ua.testing.registration_form.entity;
+package ua.testing.registration_form.model.entity;
 
 import lombok.*;
 

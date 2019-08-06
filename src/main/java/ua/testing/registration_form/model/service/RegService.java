@@ -1,10 +1,10 @@
-package ua.testing.registration_form.service;
+package ua.testing.registration_form.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.testing.registration_form.model.entity.Taxpayer;
 import ua.testing.registration_form.controller.IRegController;
 import ua.testing.registration_form.dto.NoteDTO;
-import ua.testing.registration_form.entity.Taxpayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,8 @@ public class RegService implements IRegController {
 
     @Override
     public void fromRegForm(NoteDTO note) throws RuntimeException {
-        rs.saveNewTaxpayer(note.getName(), note.getLogin(), note.getPassword());
+        rs.saveNewTaxpayer(note.getName(), note.getLogin(),
+                           note.getPassword());
     }
 
     @Override

@@ -1,9 +1,9 @@
-package ua.testing.registration_form.service;
+package ua.testing.registration_form.model.service;
 
 import ua.testing.registration_form.dto.ReportDTO;
-import ua.testing.registration_form.entity.Report;
-import ua.testing.registration_form.entity.Taxofficer;
-import ua.testing.registration_form.entity.Taxpayer;
+import ua.testing.registration_form.model.entity.Report;
+import ua.testing.registration_form.model.entity.Taxofficer;
+import ua.testing.registration_form.model.entity.Taxpayer;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,10 +15,7 @@ public interface IReportService {
 
     List<Report> getOfficerReports(String officerLogin);
 
-    List<Report> getTaxpayerReportByLoginAndTime(String taxpayerLogin,
-                                                 LocalDateTime dateTime);
-
-    Report get_1_TaxpayerReportByLoginAndTime(String taxpayerLogin,
+    Report getTaxpayerReportByLoginAndTime(String taxpayerLogin,
                                               LocalDateTime dateTime);
 
     void setReportAsAssessed(Report report);
@@ -26,8 +23,6 @@ public interface IReportService {
     void setReportAsNotAssessed(Report report);
 
     void setReportAsAccepted(Report report);
-
-    void deleteReport(ReportDTO reportDTO);
 
     Taxofficer getTaxofficerForTaxpayerLogin(String login);
 

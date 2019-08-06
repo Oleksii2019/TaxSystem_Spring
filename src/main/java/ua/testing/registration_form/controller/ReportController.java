@@ -12,27 +12,24 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Controller
-//@RequestMapping(value = "/")
 public class ReportController {
 
     @Autowired
     IReportController rc;
 
-    @RequestMapping(value = "/payer_report_list/creation", method = RequestMethod.POST)
+    @RequestMapping(value = "/payer_report_list/creation",
+                    method = RequestMethod.POST)
     public String modifyReportByPayer(String createBtn,
                                       String complaintBtn,
                                       String editBtn,
                                       String report) throws Exception {
         if (createBtn != null) {
             createReportByPayer();
-        }
-        if (editBtn != null) {
+        } else if (editBtn != null) {
             editReportByPayer(report);
-        }
-        if (complaintBtn != null) {
+        } else if (complaintBtn != null) {
             complaintReportByPayer();
         }
-
         return "redirect:/payer_report_list";
     }
 
@@ -57,7 +54,8 @@ public class ReportController {
         rc.saveNewReplacementRequest(r);
     }
 
-    @RequestMapping(value = "/officer_report_list/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/officer_report_list/create",
+                    method = RequestMethod.POST)
     public String getReportForOfficerFromForm(String report,
                                               String accBtn,
                                               String reclText,
@@ -70,17 +68,13 @@ public class ReportController {
             reportDTO.setAccepted(true);
             reportDTO.setAcceptTime(LocalDateTime.now());
             rc.acceptReport(reportDTO);
-        } else {
-            if (reclBtn != null) {
-                reportDTO.setAccepted(false);
-                reportDTO.setNote(reclText);
-                rc.assessReport(reportDTO);
-            }
+        } else if (reclBtn != null) {
+            reportDTO.setAccepted(false);
+            reportDTO.setNote(reclText);
+            rc.assessReport(reportDTO);
         }
-//        rc.updateReport(reportDTO);
         return "redirect:/officer_report_list";
     }
-
 
     private ReportDTO createNewReport(String loginName) {
         return  ReportDTO.builder()
@@ -95,6 +89,5 @@ public class ReportController {
         return SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal().toString();
     }
-
 
 }

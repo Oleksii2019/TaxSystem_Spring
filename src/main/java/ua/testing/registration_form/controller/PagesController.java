@@ -1,11 +1,8 @@
 package ua.testing.registration_form.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ua.testing.registration_form.dto.ReportDTO;
 
 @Slf4j
 @Controller

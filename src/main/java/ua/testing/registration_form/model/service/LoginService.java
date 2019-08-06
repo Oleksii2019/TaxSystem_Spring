@@ -1,4 +1,4 @@
-package ua.testing.registration_form.service;
+package ua.testing.registration_form.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

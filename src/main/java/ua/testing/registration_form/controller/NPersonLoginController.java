@@ -5,8 +5,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ua.testing.registration_form.model.entity.RoleType;
 import ua.testing.registration_form.dto.UserDTO;
-import ua.testing.registration_form.entity.RoleType;
 
 @RestController
 @RequestMapping(value = "/login_natural_person")

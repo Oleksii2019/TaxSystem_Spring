@@ -1,14 +1,11 @@
-package ua.testing.registration_form.dao;
+package ua.testing.registration_form.model.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ua.testing.registration_form.entity.Taxpayer;
+import ua.testing.registration_form.model.entity.Taxpayer;
 
 import java.util.List;
 
-/**
- *
- */
 public interface TaxpayerRepository extends JpaRepository<Taxpayer, Long> {
     List<Taxpayer> findByLoginIs(String login);
 
@@ -16,5 +13,4 @@ public interface TaxpayerRepository extends JpaRepository<Taxpayer, Long> {
 
     @Query("select u from Taxpayer u where u.name IS NOT NULL")
     List<Taxpayer> findAllTaxpayers();
-
 }

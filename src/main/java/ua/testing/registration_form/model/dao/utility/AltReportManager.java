@@ -1,12 +1,15 @@
-package ua.testing.registration_form.entity;
+package ua.testing.registration_form.model.dao.utility;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import ua.testing.registration_form.dao.AltReportRepository;
 import ua.testing.registration_form.dto.AltReportDTO;
-import ua.testing.registration_form.service.IAltReportService;
+import ua.testing.registration_form.model.dao.AltReportRepository;
+import ua.testing.registration_form.model.entity.Report;
+import ua.testing.registration_form.model.entity.ReportAlteration;
+import ua.testing.registration_form.model.service.IAltReportService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -17,28 +20,13 @@ public class AltReportManager implements IAltReportService {
     AltReportRepository arr;
 
     @Override
-    public void setAltRaportAsAccepted(ReportAlteration altReport) {
-        arr.setAltRaportAsAccepted(altReport.getId());
-    }
-
-    @Override
-    public List<ReportAlteration> getAltReportsForReport(Report report) {
-        return arr.findAllByReport(report);
+    public void setAltReportAsAccepted(ReportAlteration altReport) {
+        arr.setAltReportAsAccepted(altReport.getId(), LocalDateTime.now());
     }
 
     @Override
     public ReportAlteration getAltNotAcceptedReportForReport(Report report) {
         return arr.findNotAcceptedByReport(report);
-    }
-
-    @Override
-    public void deleteAltReports(List<ReportAlteration> altReports) {
-        altReports.stream().forEach(arr :: delete);
-    }
-
-    @Override
-    public void saveAltReports(List<ReportAlteration> altReports) {
-        altReports.stream().forEach(arr :: save);
     }
 
     @Override

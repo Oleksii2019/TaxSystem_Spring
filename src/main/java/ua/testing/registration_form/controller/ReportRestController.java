@@ -6,28 +6,26 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ua.testing.registration_form.dto.ReportDTO;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
-//@Controller
 @RestController
-//@RequestMapping(value = "/")
 public class ReportRestController {
 
     @Autowired
     IReportController rc;
 
-    @RequestMapping(value = "/not_format/reports_payer", method = RequestMethod.GET)
+    @RequestMapping(value = "/not_format/reports_payer",
+                    method = RequestMethod.GET)
     public List<ReportDTO> loadTaxpayerReports() throws Exception {
         return rc.getTaxpayerReportDTO(loginFromSecurity());
     }
 
-    @RequestMapping(value = "/not_format/reports_officer", method = RequestMethod.GET)
+    @RequestMapping(value = "/not_format/reports_officer",
+                    method = RequestMethod.GET)
     public List<ReportDTO> loadOfficerReports() throws Exception {
         return rc.getOfficerReportDTO(loginFromSecurity());
     }
-
 
     private String loginFromSecurity() throws Exception {
         return SecurityContextHolder.getContext()

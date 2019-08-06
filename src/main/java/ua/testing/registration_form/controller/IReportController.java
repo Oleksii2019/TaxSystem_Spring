@@ -1,9 +1,9 @@
 package ua.testing.registration_form.controller;
 
-import ua.testing.registration_form.dto.ReplacementDTO;
 import ua.testing.registration_form.dto.ReportDTO;
-import ua.testing.registration_form.entity.Taxofficer;
-import ua.testing.registration_form.entity.Taxpayer;
+import ua.testing.registration_form.model.entity.Taxofficer;
+import ua.testing.registration_form.model.entity.Taxpayer;
+import ua.testing.registration_form.dto.ReplacementDTO;
 
 import java.util.List;
 

@@ -1,14 +1,14 @@
-package ua.testing.registration_form.service;
+package ua.testing.registration_form.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.testing.registration_form.controller.IReportController;
-import ua.testing.registration_form.dao.ReplacementRequestRepository;
 import ua.testing.registration_form.dto.AltReportDTO;
-import ua.testing.registration_form.dto.ReplacementDTO;
 import ua.testing.registration_form.dto.ReportDTO;
-import ua.testing.registration_form.entity.*;
+import ua.testing.registration_form.model.dao.ReplacementRequestRepository;
+import ua.testing.registration_form.model.entity.*;
+import ua.testing.registration_form.dto.ReplacementDTO;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,7 +33,8 @@ public class ReportService implements IReportController {
     }
 
     @Override
-    public List<ReportDTO> getTaxpayerReportDTO(String taxpayerlogin) throws RuntimeException {
+    public List<ReportDTO> getTaxpayerReportDTO(String taxpayerlogin)
+            throws RuntimeException {
         List<Report> lr = rs.getTaxpayerReports(taxpayerlogin);
         List<ReportDTO> lrDTO = new ArrayList<>();
         IntStream.range(0, lr.size()).forEach(i ->
@@ -86,35 +87,35 @@ public class ReportService implements IReportController {
     @Override
     public ReportDTO getTaxpayerReportDTOByLoginAndTime(String loginAndTime) {
         String[] arr = loginAndTime.split(":-");
-        List<Report> lr = rs.getTaxpayerReportByLoginAndTime(
+        Report r = rs.getTaxpayerReportByLoginAndTime(
                 arr[0], LocalDateTime.parse(arr[1]));
         return ReportDTO.builder()
-               .creationTime(lr.get(0).getCreationTime())
-               .assessed(lr.get(0).isAssessed())
-               .accepted(lr.get(0).isAccepted())
-               .acceptTime(lr.get(0).getAcceptTime())
-               .acceptTime(lr.get(0).getAcceptTime())
-               .taxpayerLogin(lr.get(0).getTaxpayer().getLogin())
-               .taxofficerLogin(lr.get(0).getTaxofficer().getLogin())
-               .taxpayerName(lr.get(0).getTaxpayer().getName())
+               .creationTime(r.getCreationTime())
+               .assessed(r.isAssessed())
+               .accepted(r.isAccepted())
+               .acceptTime(r.getAcceptTime())
+               .acceptTime(r.getAcceptTime())
+               .taxpayerLogin(r.getTaxpayer().getLogin())
+               .taxofficerLogin(r.getTaxofficer().getLogin())
+               .taxpayerName(r.getTaxpayer().getName())
                .build();
     }
 
     @Override
     @Transactional
     public void updateReport(ReportDTO reportDTO) {
-        Report report = rs.get_1_TaxpayerReportByLoginAndTime(
+        Report report = rs.getTaxpayerReportByLoginAndTime(
                 reportDTO.getTaxpayerLogin(),
                 reportDTO.getCreationTime());
         ReportAlteration ra = ars.getAltNotAcceptedReportForReport(report);
         rs.setReportAsNotAssessed(report);
-        ars.setAltRaportAsAccepted(ra);
+        ars.setAltReportAsAccepted(ra);
     }
 
     @Override
     @Transactional
     public void acceptReport(ReportDTO reportDTO) {
-        Report report = rs.get_1_TaxpayerReportByLoginAndTime(
+        Report report = rs.getTaxpayerReportByLoginAndTime(
                 reportDTO.getTaxpayerLogin(),
                 reportDTO.getCreationTime());
         report.setAcceptTime(reportDTO.getAcceptTime());
@@ -124,7 +125,7 @@ public class ReportService implements IReportController {
     @Override
     @Transactional
     public void assessReport(ReportDTO reportDTO) {
-        Report report = rs.get_1_TaxpayerReportByLoginAndTime(
+        Report report = rs.getTaxpayerReportByLoginAndTime(
                 reportDTO.getTaxpayerLogin(),
                 reportDTO.getCreationTime());
         AltReportDTO arDTO = AltReportDTO.builder()
@@ -148,55 +149,15 @@ public class ReportService implements IReportController {
 
     @Override
     public void saveNewReplacementRequest(ReplacementDTO replacementDTO) {
-        rrr.save(ReplacementRequest.builder()
-            .creationTime(replacementDTO.getCreationTime())
-            .taxofficer(replacementDTO.getTaxofficer())
-            .taxpayer(replacementDTO.getTaxpayer())
-            .build()
-        );
+        if (rrr.findByTaxofficerAndTaxpayer(replacementDTO.getTaxofficer(),
+                replacementDTO.getTaxpayer()).size() == 0) {
+            rrr.save(ReplacementRequest.builder()
+                    .creationTime(replacementDTO.getCreationTime())
+                    .taxofficer(replacementDTO.getTaxofficer())
+                    .taxpayer(replacementDTO.getTaxpayer())
+                    .build()
+            );
+        }
     }
-
-//    public void updateReport(ReportDTO reportDTO) {
-//        List<Report> lr = rs.getTaxpayerReportByLoginAndTime(
-//                reportDTO.getTaxpayerLogin(),
-//                reportDTO.getCreationTime());
-//
-//        List<ReportAlteration> ral = ars.getAltReportsForReport(lr.get(0));
-//
-//        if (!reportDTO.isAssessed() &&
-//                ral.stream().anyMatch(c -> !c.isAccepted())) {
-//            ReportAlteration ra = ral.stream()
-//                    .filter(c -> !c.isAccepted())
-//                    .findFirst().get();
-//            ra.setAccepted(true);
-//            ra.setAcceptTime(LocalDateTime.now());
-//        }
-//
-//        // Попробовать заменить обновлением
-//        rs.deleteReport(reportDTO);
-//        rs.saveNewReport(reportDTO);
-//
-//        lr = rs.getTaxpayerReportByLoginAndTime(
-//                reportDTO.getTaxpayerLogin(),
-//                reportDTO.getCreationTime());
-//
-//        ars.deleteAltReports(ral);
-//
-//        Report report = lr.get(0);
-//        IntStream.range(0, ral.size()).forEach(i -> ral.get(i).setReport(report));
-//
-//        ars.saveAltReports(ral);
-//
-//        if (!reportDTO.isAccepted()) {
-//            AltReportDTO arDTO = AltReportDTO.builder()
-//                    .creationTime(LocalDateTime.now())
-//                    .note(reportDTO.getNote())
-//                    .report(report)
-//                    .build();
-//            ars.saveNewAltReport(arDTO);
-//        }
-//    }
-
-
 
 }
