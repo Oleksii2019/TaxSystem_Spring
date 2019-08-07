@@ -1,4 +1,4 @@
-package ua.testing.registration_form.controller;
+package ua.testing.registration_form;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

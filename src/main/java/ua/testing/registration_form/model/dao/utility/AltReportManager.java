@@ -10,7 +10,6 @@ import ua.testing.registration_form.model.entity.ReportAlteration;
 import ua.testing.registration_form.model.service.IAltReportService;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Slf4j
 @Repository

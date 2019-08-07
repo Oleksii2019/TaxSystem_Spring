@@ -19,7 +19,7 @@ public class NPersonLoginController extends PersonLoginController {
         loginToSecurity(user);
     }
 
-    public void loginToSecurity(UserDTO user) throws Exception {
+    public void loginToSecurity(UserDTO user) {
         Authentication auth = new UsernamePasswordAuthenticationToken(
                 user.getLogin(),
                 user.getPassword(),

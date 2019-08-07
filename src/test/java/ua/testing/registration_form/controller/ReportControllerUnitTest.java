@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ReportControllerModularTest {
+public class ReportControllerUnitTest {
     @Autowired
     private ReportController controller;
 

@@ -1,6 +1,7 @@
 package ua.testing.registration_form.model.dao.utility;
 
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.testing.registration_form.dto.ReportDTO;
@@ -66,7 +67,8 @@ public class ReportManager implements IReportService {
         List<Report> lr;
         try {
             lr = rr.findByTaxpayerLogin(taxpayerlogin);
-        } catch (RuntimeException ex) {
+        } catch (JDBCException e) {
+            log.error(e.getCause().toString());
             throw new IllegalArgumentException("x_DB");
         }
         return lr;
@@ -77,7 +79,8 @@ public class ReportManager implements IReportService {
         List<Report> lr;
         try {
             lr = rr.findByOfficerLogin(officerLogin);
-        } catch (RuntimeException ex) {
+        } catch (JDBCException e) {
+            log.error(e.getCause().toString());
             throw new IllegalArgumentException("x_DB");
         }
         return lr;
@@ -89,7 +92,8 @@ public class ReportManager implements IReportService {
         Report r;
         try {
             r = rr.find_1_ByTaxpayerLoginAndTime(taxpayerLogin, dateTime);
-        } catch (RuntimeException ex) {
+        } catch (JDBCException e) {
+            log.error(e.getCause().toString());
             throw new IllegalArgumentException("x_DB");
         }
         return r;
@@ -97,12 +101,22 @@ public class ReportManager implements IReportService {
 
     @Override
     public Taxofficer getTaxofficerForTaxpayerLogin(String login) {
-        return tm.getTaxofficerForTaxpayerLogin(login);
+        try {
+            return tm.getTaxofficerForTaxpayerLogin(login);
+        } catch (JDBCException e) {
+            log.error(e.getCause().toString());
+            throw new IllegalArgumentException("x_DB");
+        }
     }
 
     @Override
     public Taxpayer getTaxpayerByLogin(String login) {
-        return tm.getTaxpayerByLogin(login);
+        try {
+            return tm.getTaxpayerByLogin(login);
+        } catch (JDBCException e) {
+            log.error(e.getCause().toString());
+            throw new IllegalArgumentException("x_DB");
+        }
     }
 
 }

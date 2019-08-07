@@ -1,6 +1,7 @@
 package ua.testing.registration_form.model.dao.utility;
 
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ua.testing.registration_form.model.entity.RoleType;
@@ -10,7 +11,6 @@ import ua.testing.registration_form.model.dao.TaxpayerRepository;
 import ua.testing.registration_form.model.entity.Taxpayer;
 import ua.testing.registration_form.model.service.IRegService;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Slf4j
@@ -25,27 +25,41 @@ public class TaxpayerManager implements IPayerLoginService, IRegService {
 
     private boolean checkExistTaxpayerInBase(String login)
             throws RuntimeException {
-        return tr.findByLoginIs(login).isEmpty();
+        try {
+            return tr.findByLoginIs(login).isEmpty();
+        } catch (JDBCException e) {
+            log.error(e.getCause().toString());
+        }
+        return false;
     }
 
     @Override
     public boolean checkLogin(String login, String password)
             throws RuntimeException {
-        return tr.findByLoginAndPasswordIs(login, password).isEmpty();
+        try {
+            return tr.findByLoginAndPasswordIs(login, password).isEmpty();
+        } catch (JDBCException e) {
+            log.error(e.getCause().toString());
+        }
+        return false;
     }
 
     public Taxpayer getTaxpayerByLogin(String login) {
         List<Taxpayer> tt = tr.findByLoginIs(login);
-        if (!tt.isEmpty()) {
-            return tt.get(0);
-        } else {
+        if (tt.isEmpty()) {
             throw new IllegalArgumentException("x_DB");
+        } else {
+            return tt.get(0);
         }
     }
 
     public Taxofficer getTaxofficerForTaxpayerLogin(String login) {
         Taxpayer tt = getTaxpayerByLogin(login);
-        return tt.getTaxofficer();
+        if (tt == null) {
+            throw new IllegalArgumentException("x_DB");
+        } else {
+            return tt.getTaxofficer();
+        }
     }
 
     @Override
@@ -61,8 +75,8 @@ public class TaxpayerManager implements IPayerLoginService, IRegService {
                     .build();
             try {
                 tr.save(taxpayer);
-            } catch(RuntimeException ex) {
-                log.info("{}", taxpayer);
+            } catch(JDBCException e) {
+                log.error(e.getCause().toString());
             }
         } else {
             throw new IllegalArgumentException("x_reg");
@@ -71,6 +85,11 @@ public class TaxpayerManager implements IPayerLoginService, IRegService {
 
     @Override
     public List<Taxpayer> getAllTaxpayers() {
-        return tr.findAllTaxpayers();
+        try {
+            return tr.findAllTaxpayers();
+        } catch(JDBCException e) {
+            log.error(e.getCause().toString());
+            throw new RuntimeException();
+        }
     }
 }
