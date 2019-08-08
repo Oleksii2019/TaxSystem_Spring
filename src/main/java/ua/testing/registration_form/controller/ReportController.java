@@ -33,6 +33,7 @@ public class ReportController {
      * @param complaintBtn the solution for complaint creating,
      * @param editBtn the solution for report editing,
      * @param report the data for report identification
+     * @return String type for redirect command
      */
     @RequestMapping(value = "/payer_report_list/creation",
                     method = RequestMethod.POST)
@@ -87,6 +88,7 @@ public class ReportController {
      * @param accBtn the solution for report as assessed and accepted,
      * @param reclText the officer's note made during the payer's report assessing,
      * @param reclBtn the solution for report as assessed and not accepted
+     * @return String type for redirect command
      */
     @RequestMapping(value = "/officer_report_list/create",
                     method = RequestMethod.POST)
@@ -113,6 +115,7 @@ public class ReportController {
     /**
      * Provides officer's report data creating
      * @param loginName logged user's name
+     * @return ReportDTO type for new report
      */
     private ReportDTO createNewReport(String loginName) {
         return  ReportDTO.builder()
@@ -125,6 +128,7 @@ public class ReportController {
 
     /**
      * Provides logged user's name getting
+     * @return logged user's name
      */
     private String loginFromSecurity() throws Exception {
         return SecurityContextHolder.getContext()
